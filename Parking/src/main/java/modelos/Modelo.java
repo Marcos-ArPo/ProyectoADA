@@ -1,6 +1,6 @@
 package modelos;
 
-import con.conector;
+import conn.conector;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
