@@ -1,13 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controladores;
 
-/**
- *
- * @author alumnadotarde
- */
+import modelos.Modelo;
+import vistas.VisResNor;
+import java.sql.Time;
+
 public class ConResNor {
+    private VisResNor vista;
+    private Modelo modelo;
+    private String matricula;
     
+    public ConResNor(VisResNor vista, String matricula) {
+        this.vista = vista;
+        this.modelo = new Modelo();
+        this.matricula = matricula;
+    }
+    
+    public void hacerReserva(java.util.Date fecha, Time horaIni, Time horaFin) {
+        try {
+            int idCliente = modelo.obtenerIdCliente(matricula);
+            boolean exito = modelo.hacerReserva(idCliente, fecha, horaIni, horaFin, false, null);
+            
+            if (exito) {
+                // Mostrar mensaje de éxito
+                // Volver al índice normal
+            } else {
+                // Mostrar mensaje de error
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
