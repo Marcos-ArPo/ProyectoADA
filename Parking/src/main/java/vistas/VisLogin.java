@@ -26,7 +26,7 @@ public class VisLogin extends javax.swing.JFrame {
         txtMatricula = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sistema de Paarking - Login");
+        setTitle("Sistema de Parking - Login");
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setText("SISTEMA DE PARKING");

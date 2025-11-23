@@ -88,9 +88,9 @@ insert into reserva (id_reserva, id_plaza, id_cliente, fecha_res, hora_ini, hora
 
 -- tabla serviciovip
 insert into serviciovip (id_servicio, nombre_serv, descr, precio) values
-(1, 'lavado', 'lavado completo exterior e interior', 15.00),
-(2, 'carga', 'carga de vehículo eléctrico', 10.00),
-(3, 'aparcacoches', 'servicio de aparcacoches vip', 20.00);
+(1, 'Lavado', 'lavado completo exterior e interior', 15.00),
+(2, 'Carga', 'carga de vehículo eléctrico', 10.00),
+(3, 'Aparcacoches', 'servicio de aparcacoches vip', 20.00);
 
 -- tabla reserva_servicio
 insert into reserva_servicio (id_reserva, id_servicio) values

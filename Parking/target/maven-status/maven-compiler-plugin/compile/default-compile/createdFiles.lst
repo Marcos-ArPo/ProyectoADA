@@ -24,6 +24,7 @@ modelos\clases\plaza.class
 vistas\VisLogin$1.class
 vistas\VisLogin.class
 vistas\VisIndexNor$1.class
+parking\Parking.class
 controladores\ConReg.class
 controladores\ConResVip.class
 modelos\clases\planta.class
