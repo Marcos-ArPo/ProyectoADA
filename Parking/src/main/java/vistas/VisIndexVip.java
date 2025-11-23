@@ -46,6 +46,7 @@ public class VisIndexVip extends javax.swing.JFrame {
         jLabel2.setText("Bienvenido cliente VIP");
 
         lblMatricula.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        lblMatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         btnReservar.setText("Hacer Reserva");
         btnReservar.addActionListener(new java.awt.event.ActionListener() {

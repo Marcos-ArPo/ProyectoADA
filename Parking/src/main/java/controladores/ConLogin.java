@@ -14,7 +14,6 @@ public class ConLogin {
     public ConLogin(VisLogin vista) {
         this.vista = vista;
         this.modelo = new Modelo();
-        // Aquí conectarías los eventos de la vista con los métodos del controlador
     }
     
     public void verificarMatricula(String matricula) {

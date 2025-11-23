@@ -8,14 +8,14 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class VisResVip extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VisResVip.class.getName());
     private ConResVip controlador;
     private String matricula;
 
     public VisResVip(String mat) {
+        this.matricula = mat;
         initComponents();
-        this.matricula =  mat;
         controlador = new ConResVip(this, matricula);
         setLocationRelativeTo(null);
     }
@@ -196,20 +196,20 @@ public class VisResVip extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Escriba una fecha", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         String horIni = txtHoraIni.getText().replace(":", "");
         String horFin = txtHoraFin.getText().replace(":", "");
-        
+
         if (horIni.length() != 4 || horFin.length() != 4) {
             JOptionPane.showMessageDialog(this, "Formato de hora incorrecto (HH:MM)", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         try {
-            Time horaIni = Time.valueOf(horIni.substring(0, 2) + ":" + horIni.substring(2, 4) + ":00");
-            Time horaFin = Time.valueOf(horFin.substring(0, 2) + ":" + horFin.substring(2, 4) + ":00");
+            Time horaIni = Time.valueOf(txtHoraIni.getText() + ":00");
+            Time horaFin = Time.valueOf(txtHoraFin.getText() + ":00");
             Date fecha = Date.valueOf(txtFecha.getText());
-            
+
             // Obtener servicios seleccionados
             List<Integer> servicios = new ArrayList<>();
             if (chkLimpieza.isSelected()) {
@@ -221,9 +221,9 @@ public class VisResVip extends javax.swing.JFrame {
             if (chkCarga.isSelected()) {
                 servicios.add(2);
             }
-            
+
             controlador.hacerReserva(fecha, horaIni, horaFin, servicios);
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error grave : " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

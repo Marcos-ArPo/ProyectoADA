@@ -12,8 +12,8 @@ public class VisResNor extends javax.swing.JFrame {
     private String matricula;
 
     public VisResNor(String mat) {
-        initComponents();
         this.matricula = mat;
+        initComponents();
         controlador = new ConResNor(this, matricula);
         setLocationRelativeTo(null);
     }
@@ -170,13 +170,14 @@ public class VisResNor extends javax.swing.JFrame {
         }
         
         try {
-            Time horaIni = Time.valueOf(horIni.substring(0, 2)+":"+horIni.substring(2, 4));
-            Time horaFin = Time.valueOf(horFin.substring(0, 2)+":"+horFin.substring(2, 4));
+            Time horaIni = Time.valueOf(txtHoraIni.getText()+":00");
+            Time horaFin = Time.valueOf(txtHoraFin.getText()+":00");
             Date fecha = Date.valueOf(txtFecha.getText());
             
             controlador.hacerReserva(fecha, horaIni, horaFin);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error grave : "+e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

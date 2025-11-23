@@ -194,4 +194,199 @@ public class Modelo {
             return -1;
         }
     }
+
+    // Método para obtener reservas del cliente
+    public List<reserva> obtenerReservasCliente(int idCliente) throws Exception {
+        List<reserva> reservas = new ArrayList<>();
+        String sql = "SELECT * FROM reserva WHERE id_cliente = ? ORDER BY fecha_res DESC, hora_ini DESC";
+
+        try (Connection con = connector.con(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, idCliente);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                reserva r = new reserva();
+                r.setIdReserva(rs.getInt("id_reserva"));
+                r.setIdPlaza(rs.getInt("id_plaza"));
+                r.setIdCliente(rs.getInt("id_cliente"));
+                r.setFechaRes(rs.getDate("fecha_res"));
+                r.setHoraIni(rs.getTime("hora_ini"));
+                r.setHoraFin(rs.getTime("hora_fin"));
+                r.setEstado(rs.getString("estado"));
+                reservas.add(r);
+            }
+        }
+        return reservas;
+    }
+
+    // Método para obtener reservas activas del cliente
+    public List<reserva> obtenerReservasActivas(int idCliente) throws Exception {
+        List<reserva> reservas = new ArrayList<>();
+        String sql = "SELECT * FROM reserva WHERE id_cliente = ? AND estado = 'ACTIVA' ORDER BY fecha_res, hora_ini";
+
+        try (Connection con = connector.con(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, idCliente);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                reserva r = new reserva();
+                r.setIdReserva(rs.getInt("id_reserva"));
+                r.setIdPlaza(rs.getInt("id_plaza"));
+                r.setIdCliente(rs.getInt("id_cliente"));
+                r.setFechaRes(rs.getDate("fecha_res"));
+                r.setHoraIni(rs.getTime("hora_ini"));
+                r.setHoraFin(rs.getTime("hora_fin"));
+                r.setEstado(rs.getString("estado"));
+                reservas.add(r);
+            }
+        }
+        return reservas;
+    }
+
+    // Método para cancelar reserva normal
+    public boolean cancelarReserva(int idReserva) throws Exception {
+        Connection con = null;
+        try {
+            con = connector.con();
+            con.setAutoCommit(false);
+
+            // Obtener id_plaza de la reserva
+            String sqlGetPlaza = "SELECT id_plaza FROM reserva WHERE id_reserva = ?";
+            int idPlaza = -1;
+            try (PreparedStatement pstmt = con.prepareStatement(sqlGetPlaza)) {
+                pstmt.setInt(1, idReserva);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    idPlaza = rs.getInt("id_plaza");
+                }
+            }
+
+            // Actualizar estado de la reserva
+            String sqlUpdateReserva = "UPDATE reserva SET estado = 'CANCELADA' WHERE id_reserva = ?";
+            try (PreparedStatement pstmt = con.prepareStatement(sqlUpdateReserva)) {
+                pstmt.setInt(1, idReserva);
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows == 0) {
+                    con.rollback();
+                    return false;
+                }
+            }
+
+            // Liberar la plaza
+            if (idPlaza != -1) {
+                String sqlUpdatePlaza = "UPDATE plaza SET disponible = true WHERE id_plaza = ?";
+                try (PreparedStatement pstmt = con.prepareStatement(sqlUpdatePlaza)) {
+                    pstmt.setInt(1, idPlaza);
+                    pstmt.executeUpdate();
+                }
+            }
+
+            con.commit();
+            return true;
+
+        } catch (Exception e) {
+            if (con != null) {
+                con.rollback();
+            }
+            throw e;
+        } finally {
+            if (con != null) {
+                con.setAutoCommit(true);
+                con.close();
+            }
+        }
+    }
+
+    // Método para cancelar reserva VIP
+    public boolean cancelarReservaVip(int idReserva) throws Exception {
+        Connection con = null;
+        try {
+            con = connector.con();
+            con.setAutoCommit(false);
+
+            // Obtener id_plaza de la reserva
+            String sqlGetPlaza = "SELECT id_plaza FROM reserva WHERE id_reserva = ?";
+            int idPlaza = -1;
+            try (PreparedStatement pstmt = con.prepareStatement(sqlGetPlaza)) {
+                pstmt.setInt(1, idReserva);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    idPlaza = rs.getInt("id_plaza");
+                }
+            }
+
+            // Eliminar servicios asociados
+            String sqlDeleteServicios = "DELETE FROM reserva_servicio WHERE id_reserva = ?";
+            try (PreparedStatement pstmt = con.prepareStatement(sqlDeleteServicios)) {
+                pstmt.setInt(1, idReserva);
+                pstmt.executeUpdate();
+            }
+
+            // Actualizar estado de la reserva
+            String sqlUpdateReserva = "UPDATE reserva SET estado = 'CANCELADA' WHERE id_reserva = ?";
+            try (PreparedStatement pstmt = con.prepareStatement(sqlUpdateReserva)) {
+                pstmt.setInt(1, idReserva);
+                int affectedRows = pstmt.executeUpdate();
+                if (affectedRows == 0) {
+                    con.rollback();
+                    return false;
+                }
+            }
+
+            // Liberar la plaza
+            if (idPlaza != -1) {
+                String sqlUpdatePlaza = "UPDATE plaza SET disponible = true WHERE id_plaza = ?";
+                try (PreparedStatement pstmt = con.prepareStatement(sqlUpdatePlaza)) {
+                    pstmt.setInt(1, idPlaza);
+                    pstmt.executeUpdate();
+                }
+            }
+
+            con.commit();
+            return true;
+
+        } catch (Exception e) {
+            if (con != null) {
+                con.rollback();
+            }
+            throw e;
+        } finally {
+            if (con != null) {
+                con.setAutoCommit(true);
+                con.close();
+            }
+        }
+    }
+
+    // Método para obtener servicios de una reserva
+    public List<String> obtenerServiciosReserva(int idReserva) throws Exception {
+        List<String> servicios = new ArrayList<>();
+        String sql = "SELECT sv.nombre_serv FROM serviciovip sv "
+                + "JOIN reserva_servicio rs ON sv.id_servicio = rs.id_servicio "
+                + "WHERE rs.id_reserva = ?";
+
+        try (Connection con = connector.con(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, idReserva);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                servicios.add(rs.getString("nombre_serv"));
+            }
+        }
+        return servicios;
+    }
+
+    // Método para verificar estado de cuota
+    public boolean verificarEstadoCuota(int idCliente) throws Exception {
+        String sql = "SELECT cuota_pagada FROM cliente WHERE id_cliente = ?";
+        try (Connection con = connector.con(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+            pstmt.setInt(1, idCliente);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getBoolean("cuota_pagada");
+            }
+            return false;
+        }
+    }
 }

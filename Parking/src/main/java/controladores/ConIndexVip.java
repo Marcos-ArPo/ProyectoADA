@@ -38,6 +38,17 @@ public class ConIndexVip {
 
     public void hacerReservaVip() {
         try {
+            // Verificar estado de cuota primero
+            boolean cuotaPagada = verificarEstadoCuotaEnBD();
+            if (!cuotaPagada) {
+                JOptionPane.showMessageDialog(vista,
+                        "No puede realizar reservas VIP con cuota pendiente.\n"
+                        + "Por favor, regularice su situación.",
+                        "Cuota Pendiente",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             // Verificar si hay plazas VIP disponibles
             List<modelos.clases.plaza> plazasVipDisponibles = modelo.obtenerPlazasDisponibles(true);
 
@@ -119,7 +130,7 @@ public class ConIndexVip {
             }
 
             sb.append("Beneficios VIP:\n");
-            sb.append("- Planta exclusiva C (50 plazas)\n");
+            sb.append("- Planta exclusiva (20 plazas)\n");
             sb.append("- Servicio de aparcacoches\n");
             sb.append("- Limpieza exterior incluida\n");
             sb.append("- Carga eléctrica para vehículos\n");
@@ -220,6 +231,11 @@ public class ConIndexVip {
                                 "Cancelación Exitosa",
                                 JOptionPane.INFORMATION_MESSAGE);
                         cargarReservasActivas();
+                    } else {
+                        JOptionPane.showMessageDialog(vista,
+                                "Error al cancelar la reserva VIP.",
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -239,7 +255,7 @@ public class ConIndexVip {
 
             StringBuilder info = new StringBuilder();
             info.append("=== INFORMACIÓN PARKING VIP ===\n\n");
-            info.append("Plazas VIP Totales: 50 (Planta C exclusiva)\n");
+            info.append("Plazas VIP Totales: 20 (Planta exclusiva)\n");
             info.append("Plazas VIP Disponibles: ").append(plazasVipDisponibles).append("\n");
             info.append("Plazas Normales Disponibles: ").append(plazasNormalesDisponibles).append("\n\n");
             info.append("Tarifas VIP:\n");
@@ -281,39 +297,82 @@ public class ConIndexVip {
         }
     }
 
-    // Métodos auxiliares privados
+    // Métodos auxiliares privados - IMPLEMENTADOS
     private List<reserva> obtenerReservasCliente() throws Exception {
-        // En una implementación real, consulta a la BD
-        return java.util.Collections.emptyList();
+        return modelo.obtenerReservasCliente(idCliente);
     }
 
     private List<reserva> obtenerReservasActivas() throws Exception {
-        // Filtrar por estado "ACTIVA"
-        return obtenerReservasCliente();
+        return modelo.obtenerReservasActivas(idCliente);
     }
 
     private List<String> obtenerServiciosReserva(int idReserva) throws Exception {
-        // En implementación real, consultar servicios de la reserva
-        return java.util.Collections.emptyList();
+        return modelo.obtenerServiciosReserva(idReserva);
     }
 
     private boolean verificarEstadoCuotaEnBD() throws Exception {
-        // En implementación real, consultar estado de cuota
-        return true;
+        return modelo.verificarEstadoCuota(idCliente);
     }
 
     private boolean cancelarReservaVipEnBD(int idReserva) throws Exception {
-        // En implementación real, cancelar reserva y servicios
-        return true;
+        return modelo.cancelarReservaVip(idReserva);
     }
 
     private void cargarReservasActivas() {
-        // Actualizar interfaz con reservas activas
         try {
             List<reserva> reservasActivas = obtenerReservasActivas();
-            // Actualizar vista
+
+            // Actualizar la vista con la información de reservas
+            if (vista != null) {
+                actualizarTablaReservasEnVista(reservasActivas);
+            }
         } catch (Exception e) {
             // Manejar error silenciosamente
+            System.err.println("Error al cargar reservas activas: " + e.getMessage());
+        }
+    }
+
+    private void actualizarTablaReservasEnVista(List<reserva> reservas) {
+        try {
+            // Buscar JTable en la vista para mostrar reservas
+            java.awt.Component[] components = vista.getContentPane().getComponents();
+            for (java.awt.Component comp : components) {
+                if (comp instanceof javax.swing.JTable) {
+                    javax.swing.JTable tabla = (javax.swing.JTable) comp;
+                    if (tabla.getName() != null && tabla.getName().equals("tablaReservas")) {
+                        // Crear modelo de tabla con las reservas VIP (incluye columna de servicios)
+                        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(
+                                new Object[]{"ID", "Fecha", "Hora Inicio", "Hora Fin", "Servicios", "Estado"}, 0
+                        );
+
+                        for (reserva r : reservas) {
+                            // Obtener servicios para esta reserva
+                            String serviciosStr = "";
+                            try {
+                                List<String> servicios = obtenerServiciosReserva(r.getIdReserva());
+                                if (!servicios.isEmpty()) {
+                                    serviciosStr = String.join(", ", servicios);
+                                }
+                            } catch (Exception e) {
+                                serviciosStr = "Error al cargar servicios";
+                            }
+
+                            model.addRow(new Object[]{
+                                r.getIdReserva(),
+                                r.getFechaRes(),
+                                r.getHoraIni(),
+                                r.getHoraFin(),
+                                serviciosStr,
+                                r.getEstado()
+                            });
+                        }
+                        tabla.setModel(model);
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error al actualizar tabla: " + e.getMessage());
         }
     }
 
@@ -329,7 +388,7 @@ public class ConIndexVip {
                         JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
-            // Manejar error silenciosamente
+            System.err.println("Error al verificar cuota: " + e.getMessage());
         }
     }
 
