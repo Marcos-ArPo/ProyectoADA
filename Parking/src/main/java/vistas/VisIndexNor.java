@@ -1,7 +1,6 @@
 package vistas;
 
 import controladores.ConIndexNor;
-import javax.swing.JOptionPane;
 
 public class VisIndexNor extends javax.swing.JFrame {
     
@@ -14,11 +13,12 @@ public class VisIndexNor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public VisIndexNor(String matricula) {
+    public VisIndexNor(String mat) {
         this();
-        this.matricula = matricula;
+        this.matricula = mat;
         controlador = new ConIndexNor(this, matricula);
-        lblBienvenida.setText("Bienvenido Cliente NORMAL - Matrícula: " + matricula);
+        lblMatricula.setText("Matrícula "+matricula);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,57 +33,69 @@ public class VisIndexNor extends javax.swing.JFrame {
         btnCancelarReserva = new javax.swing.JButton();
         btnInfoParking = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        lblMatricula = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Parking - Cliente Normal");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Menú Principal - Cliente Normal"));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setText("PARKING - CLIENTE NORMAL");
 
-        lblBienvenida.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblBienvenida.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblBienvenida.setText("Bienvenido Cliente NORMAL");
 
-        btnReservar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnReservar.setText("Hacer Reserva");
+        btnReservar.setAlignmentY(0.0F);
+        btnReservar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReservar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnReservar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReservarActionPerformed(evt);
             }
         });
 
-        btnVerReservas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVerReservas.setText("Ver Mis Reservas");
+        btnVerReservas.setAlignmentY(0.0F);
+        btnVerReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVerReservas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnVerReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerReservasActionPerformed(evt);
             }
         });
 
-        btnCancelarReserva.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelarReserva.setText("Cancelar Reserva");
+        btnCancelarReserva.setAlignmentY(0.0F);
+        btnCancelarReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelarReserva.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCancelarReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarReservaActionPerformed(evt);
             }
         });
 
-        btnInfoParking.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnInfoParking.setText("Info Parking");
+        btnInfoParking.setAlignmentY(0.0F);
+        btnInfoParking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInfoParking.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnInfoParking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInfoParkingActionPerformed(evt);
             }
         });
 
-        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setAlignmentY(0.0F);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
             }
         });
+
+        lblMatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMatricula.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -92,84 +104,84 @@ public class VisIndexNor extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel1))
+                        .addGap(111, 111, 111)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCancelarReserva)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnInfoParking))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnReservar)
+                                .addGap(130, 130, 130)
+                                .addComponent(btnVerReservas))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBienvenida)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnReservar, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(btnCancelarReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(30, 30, 30)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnVerReservas, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(btnInfoParking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(btnCerrarSesion))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(lblBienvenida))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(lblBienvenida)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVerReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(btnReservar)
+                    .addComponent(btnVerReservas))
+                .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelarReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnInfoParking, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(btnCancelarReserva)
+                    .addComponent(btnInfoParking))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        controlador.cerrarSesion();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         controlador.hacerReserva();
     }//GEN-LAST:event_btnReservarActionPerformed
-
-    private void btnVerReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReservasActionPerformed
-        controlador.verReservas();
-    }//GEN-LAST:event_btnVerReservasActionPerformed
 
     private void btnCancelarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarReservaActionPerformed
         controlador.cancelarReserva();
     }//GEN-LAST:event_btnCancelarReservaActionPerformed
 
+    private void btnVerReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReservasActionPerformed
+        controlador.verReservas();
+    }//GEN-LAST:event_btnVerReservasActionPerformed
+
     private void btnInfoParkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoParkingActionPerformed
         controlador.verInformacionParking();
     }//GEN-LAST:event_btnInfoParkingActionPerformed
-
-    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        controlador.cerrarSesion();
-    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,5 +217,6 @@ public class VisIndexNor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBienvenida;
+    private javax.swing.JLabel lblMatricula;
     // End of variables declaration//GEN-END:variables
 }
