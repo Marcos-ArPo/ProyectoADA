@@ -13,11 +13,12 @@ public class VisIndexNor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
-    public VisIndexNor(String matricula) {
+    public VisIndexNor(String mat) {
         this();
-        this.matricula = matricula;
+        this.matricula = mat;
         controlador = new ConIndexNor(this, matricula);
         lblMatricula.setText("Matrícula "+matricula);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +44,6 @@ public class VisIndexNor extends javax.swing.JFrame {
         lblBienvenida.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         lblBienvenida.setText("Bienvenido Cliente NORMAL");
 
-        btnReservar.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         btnReservar.setText("Hacer Reserva");
         btnReservar.setAlignmentY(0.0F);
         btnReservar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -54,7 +54,6 @@ public class VisIndexNor extends javax.swing.JFrame {
             }
         });
 
-        btnVerReservas.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         btnVerReservas.setText("Ver Mis Reservas");
         btnVerReservas.setAlignmentY(0.0F);
         btnVerReservas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -65,7 +64,6 @@ public class VisIndexNor extends javax.swing.JFrame {
             }
         });
 
-        btnCancelarReserva.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         btnCancelarReserva.setText("Cancelar Reserva");
         btnCancelarReserva.setAlignmentY(0.0F);
         btnCancelarReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -76,7 +74,6 @@ public class VisIndexNor extends javax.swing.JFrame {
             }
         });
 
-        btnInfoParking.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         btnInfoParking.setText("Info Parking");
         btnInfoParking.setAlignmentY(0.0F);
         btnInfoParking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -87,7 +84,6 @@ public class VisIndexNor extends javax.swing.JFrame {
             }
         });
 
-        btnCerrarSesion.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesión");
         btnCerrarSesion.setAlignmentY(0.0F);
         btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -129,7 +125,7 @@ public class VisIndexNor extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +144,7 @@ public class VisIndexNor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarReserva)
                     .addComponent(btnInfoParking))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addContainerGap())
         );
