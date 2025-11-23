@@ -23,12 +23,12 @@ public class ConLogin {
             
             switch (resultado) {
                 case "NORMAL":
-                    VisIndexNor indexNor = new VisIndexNor();
+                    VisIndexNor indexNor = new VisIndexNor(matricula);
                     indexNor.setVisible(true);
                     vista.dispose();
                     break;
                 case "VIP":
-                    VisIndexVip indexVip = new VisIndexVip();
+                    VisIndexVip indexVip = new VisIndexVip(matricula);
                     indexVip.setVisible(true);
                     vista.dispose();
                     break;
