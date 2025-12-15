@@ -1,8 +1,9 @@
 package controladores;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import modelos.Modelo;
 import vistas.VisLogin;
-import vistas.VisReg;
 import vistas.VisIndexNor;
 import vistas.VisIndexVip;
 import javax.swing.JOptionPane;
@@ -11,9 +12,37 @@ public class ConLogin {
     private VisLogin vista;
     private Modelo modelo;
     
-    public ConLogin(VisLogin vista) {
-        this.vista = vista;
+    public ConLogin() {
+        this.vista = new VisLogin();
         this.modelo = new Modelo();
+        configurarListeners();
+    }
+    
+    private void configurarListeners() {
+        vista.btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String mat = vista.txtMatricula.getText().trim().toUpperCase();
+                if (mat.isEmpty()) {
+                    JOptionPane.showMessageDialog(vista, 
+                        "Por favor, introduzca una matrícula.", 
+                        "Error", 
+                        JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                verificarMatricula(mat);
+            }
+        });
+        
+        vista.btnSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        
+        vista.setLocationRelativeTo(null);
+        vista.setVisible(true);
     }
     
     public void verificarMatricula(String matricula) {
@@ -22,8 +51,7 @@ public class ConLogin {
             
             switch (resultado) {
                 case "NORMAL":
-                    VisIndexNor indexNor = new VisIndexNor(matricula);
-                    indexNor.setVisible(true);
+                    ConIndexNor indexNor = new ConIndexNor(matricula);
                     vista.dispose();
                     break;
                 case "VIP":
@@ -44,8 +72,7 @@ public class ConLogin {
                         JOptionPane.YES_NO_OPTION);
                     
                     if (respuesta == JOptionPane.YES_OPTION) {
-                        VisReg reg = new VisReg();
-                        reg.setVisible(true);
+                        ConReg reg = new ConReg();
                         vista.dispose();
                     }
                     break;

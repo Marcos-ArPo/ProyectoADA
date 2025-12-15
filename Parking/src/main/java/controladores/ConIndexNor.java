@@ -1,9 +1,9 @@
 package controladores;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import modelos.Modelo;
 import vistas.VisIndexNor;
-import vistas.VisResNor;
-import vistas.VisLogin;
 import javax.swing.JOptionPane;
 import java.util.List;
 import modelos.clases.reserva;
@@ -16,11 +16,53 @@ public class ConIndexNor {
     private String matricula;
     private int idCliente;
 
-    public ConIndexNor(VisIndexNor vista, String matricula) {
-        this.vista = vista;
+    public ConIndexNor(String matricula) {
+        this.vista = new VisIndexNor();
         this.matricula = matricula;
         this.modelo = new Modelo();
         inicializar();
+        configurarListeners();
+    }
+    
+    private void configurarListeners() {
+        // Configurar listeners
+        vista.btnReservar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                hacerReserva();
+            }
+        });
+        
+        vista.btnCancelarReserva.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelarReserva();
+            }
+        });
+        
+        vista.btnVerReservas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                verReservas();
+            }
+        });
+        
+        vista.btnInfoParking.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                verInformacionParking();
+            }
+        });
+        
+        vista.btnCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cerrarSesion();
+            }
+        });
+        
+        vista.setLocationRelativeTo(null);
+        vista.setVisible(true);
     }
 
     private void inicializar() {
@@ -49,8 +91,7 @@ public class ConIndexNor {
                 return;
             }
 
-            VisResNor resNor = new VisResNor(matricula);
-            resNor.setVisible(true);
+            ConResNor resNor = new ConResNor(matricula);
             vista.dispose();
 
         } catch (Exception e) {
@@ -194,8 +235,7 @@ public class ConIndexNor {
                 JOptionPane.YES_NO_OPTION);
 
         if (confirmacion == JOptionPane.YES_OPTION) {
-            VisLogin login = new VisLogin();
-            login.setVisible(true);
+            ConLogin login = new ConLogin();
             vista.dispose();
         }
     }

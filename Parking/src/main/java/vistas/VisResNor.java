@@ -1,21 +1,11 @@
 package vistas;
 
-import controladores.ConResNor;
-import java.sql.Date;
-import java.sql.Time;
-import javax.swing.JOptionPane;
-
 public class VisResNor extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VisResNor.class.getName());
-    private ConResNor controlador;
-    private String matricula;
 
-    public VisResNor(String mat) {
-        this.matricula = mat;
+    public VisResNor() {
         initComponents();
-        controlador = new ConResNor(this, matricula);
-        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,9 +21,9 @@ public class VisResNor extends javax.swing.JFrame {
         txtHoraIni = new javax.swing.JTextField();
         txtHoraFin = new javax.swing.JTextField();
         txtFecha = new javax.swing.JTextField();
+        lblMatricula = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        lblMatricula = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reserva - Cliente Normal");
@@ -57,22 +47,11 @@ public class VisResNor extends javax.swing.JFrame {
 
         txtHoraFin.setText("00:00");
 
-        jButton1.setText("Confirmar Reserva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Volver");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         lblMatricula.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        lblMatricula.setText(matricula);
+
+        jButton1.setText("Confirmar Reserva");
+
+        jButton2.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,7 +107,7 @@ public class VisResNor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -148,38 +127,6 @@ public class VisResNor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        VisIndexNor index = new VisIndexNor(matricula);
-        index.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (txtFecha.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escriba una fecha", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        String horIni = txtHoraIni.getText().replace(":", "");
-        String horFin = txtHoraFin.getText().replace(":", "");
-        
-        if (horIni.length() != 4 || horFin.length() != 4) {
-            JOptionPane.showMessageDialog(this, "Formato de hora incorrecto (HH:MM)", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        try {
-            Time horaIni = Time.valueOf(txtHoraIni.getText()+":00");
-            Time horaFin = Time.valueOf(txtHoraFin.getText()+":00");
-            Date fecha = Date.valueOf(txtFecha.getText());
-            
-            controlador.hacerReserva(fecha, horaIni, horaFin);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error grave : "+e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,23 +148,20 @@ public class VisResNor extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VisResNor(args[0]).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblMatricula;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtHoraFin;
-    private javax.swing.JTextField txtHoraIni;
+    public javax.swing.JLabel lblMatricula;
+    public javax.swing.JTextField txtFecha;
+    public javax.swing.JTextField txtHoraFin;
+    public javax.swing.JTextField txtHoraIni;
     // End of variables declaration//GEN-END:variables
 }

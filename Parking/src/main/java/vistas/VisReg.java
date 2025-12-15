@@ -1,17 +1,11 @@
 package vistas;
 
-import controladores.ConReg;
-import javax.swing.JOptionPane;
-
 public class VisReg extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VisReg.class.getName());
-    private ConReg controlador;
 
     public VisReg() {
         initComponents();
-        controlador = new ConReg(this);
-        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -19,9 +13,7 @@ public class VisReg extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnVolver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnRegistrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -30,26 +22,14 @@ public class VisReg extends javax.swing.JFrame {
         txtApellidos = new javax.swing.JTextField();
         txtMatricula = new javax.swing.JTextField();
         comboCliente = new javax.swing.JComboBox<>();
+        btnVolver = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro de Cliente");
 
-        btnVolver.setText("Volver");
-        btnVolver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolverActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setText("REGISTRO DE CLIENTE");
-
-        btnRegistrar.setText("Registrar");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel2.setText("Nombre");
@@ -64,6 +44,10 @@ public class VisReg extends javax.swing.JFrame {
         jLabel5.setText("Tipo de Cliente");
 
         comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NORMAL", "VIP" }));
+
+        btnVolver.setText("Volver");
+
+        btnRegistrar.setText("Registrar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -138,26 +122,6 @@ public class VisReg extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VisLogin login = new VisLogin();
-        login.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnVolverActionPerformed
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        String nombre = txtNombre.getText().trim();
-        String apellidos = txtApellidos.getText().trim();
-        String matricula = txtMatricula.getText().trim().toUpperCase();
-        String tipo = (String) comboCliente.getSelectedItem();
-        
-        if (nombre.isEmpty() || apellidos.isEmpty() || matricula.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        controlador.registrarCliente(nombre, apellidos, matricula, tipo);
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -175,23 +139,20 @@ public class VisReg extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VisReg().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRegistrar;
-    private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> comboCliente;
+    public javax.swing.JButton btnRegistrar;
+    public javax.swing.JButton btnVolver;
+    public javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtMatricula;
-    private javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtApellidos;
+    public javax.swing.JTextField txtMatricula;
+    public javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

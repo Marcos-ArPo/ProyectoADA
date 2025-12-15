@@ -1,13 +1,11 @@
 package parking;
 
-import vistas.VisLogin;
+import controladores.ConLogin;
 
 public class Parking {
     public static void main(String [] args) {
-        VisLogin app = new VisLogin();
-        
         System.out.println("Aplicacion en ejecucion...");
-        app.setVisible(true);
+        ConLogin app = new ConLogin();
         System.out.println("Aplicacion ejecutada.");
     }
 }
