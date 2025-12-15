@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelos.Modelo;
 import vistas.VisLogin;
-import vistas.VisIndexNor;
-import vistas.VisIndexVip;
 import javax.swing.JOptionPane;
 
 public class ConLogin {
@@ -55,8 +53,7 @@ public class ConLogin {
                     vista.dispose();
                     break;
                 case "VIP":
-                    VisIndexVip indexVip = new VisIndexVip(matricula);
-                    indexVip.setVisible(true);
+                    ConIndexVip indexVip = new ConIndexVip(matricula);
                     vista.dispose();
                     break;
                 case "CUOTA_PENDIENTE":

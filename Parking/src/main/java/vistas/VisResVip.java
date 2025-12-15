@@ -1,23 +1,13 @@
 package vistas;
 
-import controladores.ConResVip;
-import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-
 public class VisResVip extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VisResVip.class.getName());
-    private ConResVip controlador;
     private String matricula;
 
     public VisResVip(String mat) {
         this.matricula = mat;
         initComponents();
-        controlador = new ConResVip(this, matricula);
-        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -38,8 +28,8 @@ public class VisResVip extends javax.swing.JFrame {
         chkLimpieza = new javax.swing.JCheckBox();
         chkAparca = new javax.swing.JCheckBox();
         chkCarga = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reserva - Cliente VIP");
@@ -64,7 +54,6 @@ public class VisResVip extends javax.swing.JFrame {
         jLabel5.setText("Fecha (YYYY-MM-DD)");
 
         lblMatricula.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-        lblMatricula.setText(matricula);
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         jLabel6.setText("Servicios VIP");
@@ -75,19 +64,9 @@ public class VisResVip extends javax.swing.JFrame {
 
         chkCarga.setText("Carga Eléctrica (10€)");
 
-        jButton1.setText("Volver");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        btnVolver.setText("Volver");
 
-        jButton2.setText("Confirmar Reserva VIP");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        btnConfirmar.setText("Confirmar Reserva VIP");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,9 +89,9 @@ public class VisResVip extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)
+                        .addComponent(btnVolver)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(btnConfirmar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -166,8 +145,8 @@ public class VisResVip extends javax.swing.JFrame {
                     .addComponent(chkCarga))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnVolver)
+                    .addComponent(btnConfirmar))
                 .addContainerGap())
         );
 
@@ -184,50 +163,6 @@ public class VisResVip extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        VisIndexVip index = new VisIndexVip(matricula);
-        index.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (txtFecha.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escriba una fecha", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        String horIni = txtHoraIni.getText().replace(":", "");
-        String horFin = txtHoraFin.getText().replace(":", "");
-
-        if (horIni.length() != 4 || horFin.length() != 4) {
-            JOptionPane.showMessageDialog(this, "Formato de hora incorrecto (HH:MM)", "Error", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            Time horaIni = Time.valueOf(txtHoraIni.getText() + ":00");
-            Time horaFin = Time.valueOf(txtHoraFin.getText() + ":00");
-            Date fecha = Date.valueOf(txtFecha.getText());
-
-            // Obtener servicios seleccionados
-            List<Integer> servicios = new ArrayList<>();
-            if (chkLimpieza.isSelected()) {
-                servicios.add(1);
-            }
-            if (chkAparca.isSelected()) {
-                servicios.add(3);
-            }
-            if (chkCarga.isSelected()) {
-                servicios.add(2);
-            }
-
-            controlador.hacerReserva(fecha, horaIni, horaFin, servicios);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error grave : " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,11 +190,11 @@ public class VisResVip extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox chkAparca;
-    private javax.swing.JCheckBox chkCarga;
-    private javax.swing.JCheckBox chkLimpieza;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton btnConfirmar;
+    public javax.swing.JButton btnVolver;
+    public javax.swing.JCheckBox chkAparca;
+    public javax.swing.JCheckBox chkCarga;
+    public javax.swing.JCheckBox chkLimpieza;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -267,9 +202,9 @@ public class VisResVip extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblMatricula;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtHoraFin;
-    private javax.swing.JTextField txtHoraIni;
+    public javax.swing.JLabel lblMatricula;
+    public javax.swing.JTextField txtFecha;
+    public javax.swing.JTextField txtHoraFin;
+    public javax.swing.JTextField txtHoraIni;
     // End of variables declaration//GEN-END:variables
 }
